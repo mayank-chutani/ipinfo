@@ -1,7 +1,7 @@
 from flask import Flask, Response, request
 import json
 
-import ipinfo, ipapi
+import ipinfo, ipapi, witch
 
 
 app = Flask(__name__)
@@ -41,6 +41,13 @@ def fetch_ipapi_endpoint():
                     mimetype='application/json',
                     response=json.dumps(resp))
 
+
+@app.route('/witch/fetch', methods=['GET'])
+def fetch_witch_endpoint():
+    resp = {'result': witch.fetch_info()}
+    return Response(status=200,
+                    mimetype='application/json',
+                    response=json.dumps(resp))
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000)
