@@ -14,7 +14,14 @@ def fetch_html(url):
 
 def parse(body):
     t = body.split('doreq();')[0].strip()
-    return t.split('ＷＩＴＣＨ？')[1].strip()
+    t = t.split('ＷＩＴＣＨ？')[1].strip()
+    d = {}
+    for line in t.split('\n'):
+        if '=' in line:
+            key, value = line.split('=')
+            d[key.strip().lower().replace(' ', '_')] = value.strip()
+    return d
+
 
 
 def fetch_info():
